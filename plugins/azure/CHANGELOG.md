@@ -1,5 +1,21 @@
 # @hot-updater/azure
 
+## 1.2.0-rc.8
+
+### Minor Changes
+
+- 832d27c: `keyVault({ vaultName | vaultUrl, prefix?, credential? })` from `@hot-updater/azure` is a secrets adapter for Azure Key Vault, so an Azure team shares its build and deploy credentials the way `secretsManager()` and `secretManager()` do on AWS and Google Cloud. Each name is the secret `<prefix><name>` (`hot-updater-` by default); a name outside Key Vault's lower-case letters, digits, and single hyphens, such as `CLOUDFLARE_API_TOKEN`, becomes its lower-cased words and `--` with 10 hex digits of the name's SHA-256, since Key Vault matches names without regard to case. It signs in with `DefaultAzureCredential`, `azure/login` in CI and `az login` on your machine, or a `TokenCredential` you pass. `set` adds a version tagged `hot-updater-name`, refuses a value over Key Vault's 25,600 characters, and on a deleted secret still recoverable fails with the `az keyvault secret recover` and `purge` commands. A deleted secret reads as missing, and a missing role, a refused sign-in, or a disabled secret fail with what to do. `@azure/keyvault-secrets` and `@azure/identity` load on the first read or write, and every value and access token is masked in the CLI's output.
+
+### Patch Changes
+
+- Updated dependencies [8a440e3]
+- Updated dependencies [2e3f250]
+- Updated dependencies [21cfeec]
+  - @hot-updater/cli-tools@1.2.0-rc.8
+  - @hot-updater/protocol@1.2.0-rc.8
+  - @hot-updater/server@1.2.0-rc.8
+  - @hot-updater/plugin-core@1.2.0-rc.8
+
 ## 1.2.0-rc.7
 
 ### Patch Changes
